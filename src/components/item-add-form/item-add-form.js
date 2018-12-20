@@ -1,12 +1,22 @@
 import React, {Component} from 'react';
 
-export default class AddItem extends Component{
+import './item-add-form.css';
+
+export default class ItemAddForm extends Component{
 
     clickButton = () => {
         console.log('click');
     };
 
     render(){
-      return <button onClick={this.clickButton}>Нажми меня</button>
+      return (
+        <div className="item-add-form">
+            <button
+                className="btn btn-outline-secondary"
+                onClick={() => this.props.onItemAdded('den')}>
+                Add Item
+            </button>
+        </div>
+      );
     };
 }

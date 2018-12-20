@@ -2,33 +2,47 @@ import React from 'react';
 
 import './todo-list-item.css';
 
-const TodoListItem = ({ label, important = false }) => {
+export default class TodoListItem extends React.Component {
 
-    const style = {
-        color: important ? 'steelblue' : 'black',
-        fontWeight: important ? 'bold' : 'normal'
-    };
+    render() {
+        const {
+            label,
+            onDeleted,
+            onToggleImportant,
+            onToggleDone,
+            done,
+            important} = this.props;
 
-    return (
-        <span className="todo-list-item">
-      <span
-          className="todo-list-item-label"
-          style={style}>
-        {label}
-      </span>
+        let classNames = 'todo-list-item';
 
-      <button type="button"
-              className="btn btn-outline-success btn-sm float-right">
-        <i className="fa fa-exclamation" />
-      </button>
+        if(done){
+            classNames += ' done';
+        }
 
-      <button type="button"
-              className="btn btn-outline-danger btn-sm float-right">
-        <i className="fa fa-trash-o" />
-      </button>
-    </span>
-    );
-};
+        if(important){
+            classNames += ' important';
+        }
 
+        return (
+            <span className={classNames}>
+                    <span
+                        className="todo-list-item-label"
+                        onClick={ onToggleDone }>
+                        {label}
+                    </span>
 
-export default TodoListItem;
+                  <button type="button"
+                        className="btn btn-outline-success btn-sm float-right"
+                        onClick={onToggleImportant}>
+                        <i className="fa fa-exclamation"/>
+                  </button>
+
+                  <button type="button"
+                        className="btn btn-outline-danger btn-sm float-right"
+                        onClick={onDeleted}>
+                        <i className="fa fa-trash-o"/>
+                  </button>
+            </span>
+        );
+    }
+}
